@@ -17,7 +17,7 @@ val_path = 'picture/validation'
 num_train = 492
 num_val = 181
 batch_size = 128
-epochs = 2
+epochs = 5
 IMG_HEIGHT = 192
 IMG_WIDTH = 192
 

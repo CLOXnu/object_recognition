@@ -1,1 +1,1 @@
-nohup python -u training.py > out.log 2>&1 &
+nohup python3 -u train.py > out.log 2>&1 &
