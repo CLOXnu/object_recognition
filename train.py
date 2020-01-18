@@ -84,11 +84,18 @@ def train(train_data_gen, val_data_gen):
     model = create_model()
     model.summary()
 
+    eachcheckpoint_path = checkpoint_path + "cp-{epoch:04d}.ckpt"
+    cp_callback = tf.keras.callbacks.ModelCheckpoint(
+        filepath=checkpoint_path,
+        verbose=1,
+        save_weights_only=True,
+        save_freq=5)
+
     model_log = model.fit_generator(
         train_data_gen,
         steps_per_epoch=num_train,
         epochs=epochs,
-        # callbacks=[cp_callback]
+        callbacks=[cp_callback],
         validation_data=val_data_gen,
         validation_steps=num_val
     )
@@ -127,6 +134,9 @@ def load_weights(model):
     model.load_weights(checkpoint_path + 'weights')
     return model
 
+def save_model(model):
+    model.save(checkpoint_path + 'model.h5')
+
 
 # %%
 
@@ -139,6 +149,7 @@ if __name__ == "__main__":
     plot_curve(model_log)
 
     save_weights(model)
+    save_model(model)
 
 
 
