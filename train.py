@@ -16,8 +16,8 @@ train_path = 'picture/train'
 val_path = 'picture/validation'
 num_train = 492
 num_val = 181
-batch_size = 128
-epochs = 5
+batch_size = 32
+epochs = 4
 IMG_HEIGHT = 192
 IMG_WIDTH = 192
 
@@ -84,12 +84,12 @@ def train(train_data_gen, val_data_gen):
     model = create_model()
     model.summary()
 
-    eachcheckpoint_path = checkpoint_path + "cp-{epoch:04d}.ckpt"
+    eachcheckpoint_path = checkpoint_path + "cp-{epoch:01d}.ckpt"
     cp_callback = tf.keras.callbacks.ModelCheckpoint(
         filepath=checkpoint_path,
         verbose=1,
         save_weights_only=True,
-        save_freq=5)
+        period=2)
 
     model_log = model.fit_generator(
         train_data_gen,
@@ -146,10 +146,10 @@ if __name__ == "__main__":
     # load_weights(model)
 
     model_log = train(train_gen, val_gan)
-    plot_curve(model_log)
+    # plot_curve(model_log)
 
     save_weights(model)
     save_model(model)
 
-
+    plot_curve(model_log)
 
