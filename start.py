@@ -19,7 +19,7 @@ IMG_WIDTH = 192
 # %%
 
 def load_model():
-    model = models.load_model('picture_model_20200118.h5')
+    model = models.load_model('dataset_training/model.h5')
     return model
 
 def load_labelname(path):
@@ -109,14 +109,15 @@ def load_weights(model):
 if __name__ == "__main__":
     resizeTo = [IMG_HEIGHT, IMG_WIDTH]
     class_path = 'picture/all'
-    img_path = 'picture/test/45.jpg'
+    img_path = 'picture/test/0.jpg'
 
     labels = load_labelname(class_path)
     img = load_image(img_path, resizeTo)
     show_image(img)
 
-    model = create_model()
-    model = load_weights(model)
+    # model = create_model()
+    # model = load_weights(model)
+    model = load_model()
     pre = predict(model, img_path, labels, IMG_HEIGHT, IMG_WIDTH)
     print(list((index, label) for (index, label) in enumerate(labels)))
     plot_pre(pre[0], labels)
